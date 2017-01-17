@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FoodListService } from '../food-list.service'
+import { FoodListService, Restaurant } from '../food-list.service'
 
 @Component({
 	selector: 'nom-food-picker',
@@ -7,8 +7,8 @@ import { FoodListService } from '../food-list.service'
 	styleUrls: ['./food-picker.component.css']
 })
 export class FoodPickerComponent implements OnInit {
-	selection: string = ''
-	options: string[]
+	selection: Restaurant = {name: 'Where to nom?', list: null}
+	options: Restaurant[]
 
 	picking: boolean = false
 	interval: number
@@ -18,12 +18,11 @@ export class FoodPickerComponent implements OnInit {
 
 	beep: any = new Beep('/assets/beep.mp3')
 
-	constructor(private list: FoodListService) {
-		this.options = this.list.options
+	constructor(private listService: FoodListService) {
+		
 	}
 
 	ngOnInit() {
-		this.selection = 'Where to nom?'
 		this.beep.load()
 	}
 
@@ -32,9 +31,16 @@ export class FoodPickerComponent implements OnInit {
 		this.picking = true
 
 		console.log('picking food')
+		this.options = this.listService.data.filter((restaurant) => {
+			return restaurant.list == 'pick'
+		})
+		this.resetTimer()
+		this.timer(()=> {})
+	}
+
+	resetTimer() {
 		this.interval = 1
 		this.count = 0
-		this.timer(()=> {})
 	}
 
 	timer(callback) {
@@ -60,7 +66,7 @@ export class FoodPickerComponent implements OnInit {
 			this.picking = false
 
 			this.selection = this.getNewSelection()
-			this.list.selectOption(this.selection)
+			this.listService.selectOption(this.selection)
 		}, delay) 
 	}
 

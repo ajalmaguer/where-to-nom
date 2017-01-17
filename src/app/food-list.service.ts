@@ -2,54 +2,52 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class FoodListService {
-	options: string[] = []
-	eaten: string[] = []
+	data: Restaurant[] = []
 
 	constructor() { }
 
+	addItem() {
+		this.data.push({name: '', list: 'pick'})
+		this.saveData()
+	}
 
+	removeItem(item) {
+		console.log(this.data)
+		this.data.splice(this.data.indexOf(item), 1)
 
-	selectOption(option: string) {
-		let i = this.options.indexOf(option)
-		let selected: string
-		if (i !== -1) {
-			selected = this.options.splice(i,1)[0]
-		} else {
-			console.log('selected = ', selected)
-		}
+		this.saveData()
+	}
 
-		this.eaten.push(selected)
+	seedData() {
+		this.data = getSeedData()
+		this.saveData()
+	}
+
+	selectOption(item: Restaurant) {
+		let selectedItem: Restaurant = this.data.splice(this.data.indexOf(item),1)[0]
+		selectedItem.list = 'eaten'
+		this.data.push(selectedItem)
 		this.saveData()
 	}
 
 	saveData() {
-		this.setItem('options', this.options)
-		this.setItem('eaten', this.eaten)
+		this.setItem('data', this.data)
 	}
 
 	loadData() {
-		let options = this.getItem('options')
-		console.log(options, options != null)
-		if (options != null && typeof options.forEach == 'function') {
-			options.forEach((item)=> {
-				this.options.push(item)
+		let data = this.getItem('data')
+		console.log(data, data != null)
+		if (data != null && typeof data.forEach == 'function') {
+			data.forEach((item)=> {
+				this.data.push(item)
 			})
 		}
-		let eaten = this.getItem('eaten')
-		console.log(eaten, eaten != null)
-		if (eaten != null && typeof eaten.forEach == 'function') {
-			eaten.forEach((item)=> {
-				this.eaten.push(item)
-			})
-		}
-		
 	}
 
 	resetList() {
-		this.eaten.forEach((item) => {
-			this.options.push(item)
+		this.data.forEach((item) => {
+			item.list = 'pick'
 		})
-		this.eaten = []
 		this.saveData()
 	}
 
@@ -62,5 +60,37 @@ export class FoodListService {
 	}
 }
 
+export interface Restaurant {
+	name: string
+	list: string
+}
 
-// ["Another Broken Egg","Portos","Granville","In-N-Out","Casitas Tacos El Carbon", "World Empanadas"]
+
+function getSeedData() {
+	let data: Restaurant[] = [
+		{
+			name: 'Another Broken Egg',
+			list: 'pick'
+		},{
+			name: 'Portos',
+			list: 'pick'
+		},{
+			name: 'Granville',
+			list: 'pick'
+		},{
+			name: 'World Empanadas',
+			list: 'pick'
+		},{
+			name: 'In-n-Out',
+			list: 'pick'
+		},{
+			name: 'Casitas Tacos El Carbon',
+			list: 'eaten'
+		},{
+			name: 'Better Fresh',
+			list: 'eaten'
+		}
+	]
+
+	return data
+}

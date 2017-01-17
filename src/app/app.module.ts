@@ -7,7 +7,8 @@ import { AppComponent } from './app.component';
 import { FoodPickerComponent } from './food-picker/food-picker.component';
 import { FoodListComponent } from './food-list/food-list.component';
 import { FoodListService } from './food-list.service';
-import { AddItemComponent } from './add-item/add-item.component'
+import { AddItemComponent } from './add-item/add-item.component';
+import { NomFilterPipe } from './pipes/nom-filter.pipe';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { AddItemComponent } from './add-item/add-item.component'
 		AppComponent,
 		FoodPickerComponent,
 		FoodListComponent,
-		AddItemComponent
+		AddItemComponent,
+		NomFilterPipe,
 	],
 	imports: [
 		BrowserModule,

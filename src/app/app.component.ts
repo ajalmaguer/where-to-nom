@@ -9,10 +9,10 @@ import { FoodListService } from './food-list.service'
 export class AppComponent implements OnInit {
 	title = 'nom works!';
 
-	constructor(private list: FoodListService) {}
+	constructor(private listService: FoodListService) {}
 
 	ngOnInit() {
-		this.list.loadData()
+		this.listService.loadData()
 	}
 
 }
