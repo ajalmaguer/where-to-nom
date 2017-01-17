@@ -15,9 +15,7 @@ export class FoodListComponent implements OnInit {
 	}
 
 	onBlur(i: number, item) {
-		console.log('i =', i, 'item =', item)
 		if (item.name == '') {
-			console.log('blank')
 			this.listService.removeItem(item)
 		}
 	}

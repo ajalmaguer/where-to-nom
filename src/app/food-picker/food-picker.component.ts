@@ -27,10 +27,16 @@ export class FoodPickerComponent implements OnInit {
 	}
 
 	pickFood() {
-		if (this.picking) return false
+		if (this.picking || this.listService.data.filter((r)=> r.list == 'pick').length < 1) return false
+
+		if (this.listService.data.filter((r)=> r.list == 'pick').length == 1) {
+			this.selection = this.listService.data.filter((r)=> r.list == 'pick')[0]
+			this.listService.selectOption(this.selection)
+			return false
+		}
+
 		this.picking = true
 
-		console.log('picking food')
 		this.options = this.listService.data.filter((restaurant) => {
 			return restaurant.list == 'pick'
 		})
@@ -41,6 +47,7 @@ export class FoodPickerComponent implements OnInit {
 	resetTimer() {
 		this.interval = 1
 		this.count = 0
+		this.maxCount = 20 + Math.floor(Math.random()*2)
 	}
 
 	timer(callback) {
@@ -62,7 +69,6 @@ export class FoodPickerComponent implements OnInit {
 		let delay = Math.random() * 2000
 		setTimeout(() => {
 			// set to result of api call
-			console.log('done')
 			this.picking = false
 
 			this.selection = this.getNewSelection()
@@ -72,10 +78,8 @@ export class FoodPickerComponent implements OnInit {
 
 	getNewSelection() {
 		let newSelection = this.options[Math.floor(Math.random()*this.options.length)]
-		// console.log(this.selection, newSelection)
 		for (var i=0; i < 3; i++ ) {
 			if (this.selection == newSelection) {
-				// console.log('pick again')
 				newSelection = this.options[Math.floor(Math.random()*this.options.length)]
 			}	
 		}

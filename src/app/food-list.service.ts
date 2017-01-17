@@ -12,7 +12,6 @@ export class FoodListService {
 	}
 
 	removeItem(item) {
-		console.log(this.data)
 		this.data.splice(this.data.indexOf(item), 1)
 
 		this.saveData()
@@ -36,7 +35,6 @@ export class FoodListService {
 
 	loadData() {
 		let data = this.getItem('data')
-		console.log(data, data != null)
 		if (data != null && typeof data.forEach == 'function') {
 			data.forEach((item)=> {
 				this.data.push(item)
