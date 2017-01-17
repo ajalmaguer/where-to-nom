@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren } from '@angular/core';
 import { FoodListService } from '../food-list.service'
 
 @Component({
@@ -8,6 +8,7 @@ import { FoodListService } from '../food-list.service'
 })
 export class FoodListComponent implements OnInit {
 	@Input() list: string[]
+	@ViewChildren('itemInput') itemInputs
 
 	constructor(private listService: FoodListService) { }
 
@@ -19,6 +20,18 @@ export class FoodListComponent implements OnInit {
 			this.listService.removeItem(item)
 		}
 		this.listService.saveData()
+	}
+
+	onKeyup(event) {
+		if (event.code == "Enter") {
+			this.listService.addItem()
+			setTimeout(() => {
+				let self = this
+				this.itemInputs.last.nativeElement.focus()
+			}, 100) 
+			
+		}
+
 	}
 
 

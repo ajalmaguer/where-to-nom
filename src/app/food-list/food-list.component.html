@@ -3,5 +3,5 @@
 </ul> -->
 
 <div class="form-group" *ngFor="let item of list; let i = index;">
-	<input type="text" class="form-control" placeholder="Name" [(ngModel)]="item.name" (blur)="onBlur(i, item)">
+	<input type="text" class="form-control" placeholder="Name" [(ngModel)]="item.name" (blur)="onBlur(i, item)" (keyup)="onKeyup($event)" #itemInput>
 </div>
