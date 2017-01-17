@@ -5,12 +5,15 @@ dInterval: <input type="number" [(ngModel)]="dInterval">
 maxCount: <input type="number" [(ngModel)]="maxCount">
 <br> -->
 
-<div style="min-height: 200px;">
+<div style="min-height: 100px;">
 	<h1>{{selection}}</h1>
 </div>
 
 <br>
 
 
-<button type="button" class="btn btn-primary btn-lg" (click)="pickFood()"><i class="fa fa-question"></i></button>
+<button type="button" class="btn btn-primary btn-lg" (click)="pickFood()">
+	<i class="fa fa-question" *ngIf="!picking"></i>
+	<i class="fa fa-times" *ngIf="picking"></i>
+</button>
 

@@ -6,14 +6,16 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { FoodPickerComponent } from './food-picker/food-picker.component';
 import { FoodListComponent } from './food-list/food-list.component';
-import { FoodListService } from './food-list.service'
+import { FoodListService } from './food-list.service';
+import { AddItemComponent } from './add-item/add-item.component'
 
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		FoodPickerComponent,
-		FoodListComponent
+		FoodListComponent,
+		AddItemComponent
 	],
 	imports: [
 		BrowserModule,

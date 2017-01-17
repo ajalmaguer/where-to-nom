@@ -10,6 +10,7 @@ export class FoodPickerComponent implements OnInit {
 	selection: string = ''
 	options: string[]
 
+	picking: boolean = false
 	interval: number
 	dInterval: number = 20
 	count: number
@@ -27,6 +28,9 @@ export class FoodPickerComponent implements OnInit {
 	}
 
 	pickFood() {
+		if (this.picking) return false
+		this.picking = true
+
 		console.log('picking food')
 		this.interval = 1
 		this.count = 0
@@ -41,7 +45,7 @@ export class FoodPickerComponent implements OnInit {
 
 		if (this.count < this.maxCount) {
 			setTimeout(() => {
-				this.timer(() => {this.done()})
+				this.timer(() => this.done())
 			}, this.interval)
 		} else {
 			callback()
@@ -53,7 +57,10 @@ export class FoodPickerComponent implements OnInit {
 		setTimeout(() => {
 			// set to result of api call
 			console.log('done')
+			this.picking = false
+
 			this.selection = this.getNewSelection()
+			this.list.selectOption(this.selection)
 		}, delay) 
 	}
 
