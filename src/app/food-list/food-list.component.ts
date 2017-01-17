@@ -18,6 +18,7 @@ export class FoodListComponent implements OnInit {
 		if (item.name == '') {
 			this.listService.removeItem(item)
 		}
+		this.listService.saveData()
 	}
 
 

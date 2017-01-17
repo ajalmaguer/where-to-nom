@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class FoodListService {
 	data: Restaurant[] = []
+	showedAlert: boolean = false
 
 	constructor() { }
 
@@ -29,6 +30,13 @@ export class FoodListService {
 		this.saveData()
 	}
 
+	resetList() {
+		this.data.forEach((item) => {
+			item.list = 'pick'
+		})
+		this.saveData()
+	}
+
 	saveData() {
 		this.setItem('data', this.data)
 	}
@@ -42,19 +50,35 @@ export class FoodListService {
 		}
 	}
 
-	resetList() {
-		this.data.forEach((item) => {
-			item.list = 'pick'
-		})
-		this.saveData()
-	}
-
 	setItem(key: string, value: any) {
-		window.localStorage.setItem(key, JSON.stringify(value))
+		if (this.isLocalStorageNameSupported()){
+			console.log("works?")
+			window.localStorage.setItem(key, JSON.stringify(value))
+		}
 	}
 
 	getItem(key: string) {
-		return JSON.parse(window.localStorage.getItem(key))
+		if (this.isLocalStorageNameSupported()){
+			console.log("works?")
+			return JSON.parse(window.localStorage.getItem(key))
+		}
+	}
+
+	isLocalStorageNameSupported() {
+		try 
+		{
+			window.localStorage.setItem('testKey', '1');
+		} 
+		catch (error) 
+		{
+			console.log(error)
+			if (!this.showedAlert) {
+				alert("can't store data in private mode")
+				this.showedAlert = true
+			}
+			return false;
+		}
+		return true
 	}
 }
 
@@ -66,28 +90,28 @@ export interface Restaurant {
 
 function getSeedData() {
 	let data: Restaurant[] = [
-		{
-			name: 'Another Broken Egg',
-			list: 'pick'
-		},{
-			name: 'Portos',
-			list: 'pick'
-		},{
-			name: 'Granville',
-			list: 'pick'
-		},{
-			name: 'World Empanadas',
-			list: 'pick'
-		},{
-			name: 'In-n-Out',
-			list: 'pick'
-		},{
-			name: 'Casitas Tacos El Carbon',
-			list: 'eaten'
-		},{
-			name: 'Better Fresh',
-			list: 'eaten'
-		}
+	{
+		name: 'Another Broken Egg',
+		list: 'pick'
+	},{
+		name: 'Portos',
+		list: 'pick'
+	},{
+		name: 'Granville',
+		list: 'pick'
+	},{
+		name: 'World Empanadas',
+		list: 'pick'
+	},{
+		name: 'In-n-Out',
+		list: 'pick'
+	},{
+		name: 'Casitas Tacos El Carbon',
+		list: 'eaten'
+	},{
+		name: 'Better Fresh',
+		list: 'eaten'
+	}
 	]
 
 	return data
