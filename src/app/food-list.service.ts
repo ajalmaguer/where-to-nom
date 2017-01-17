@@ -52,14 +52,12 @@ export class FoodListService {
 
 	setItem(key: string, value: any) {
 		if (this.isLocalStorageNameSupported()){
-			console.log("works?")
 			window.localStorage.setItem(key, JSON.stringify(value))
 		}
 	}
 
 	getItem(key: string) {
 		if (this.isLocalStorageNameSupported()){
-			console.log("works?")
 			return JSON.parse(window.localStorage.getItem(key))
 		}
 	}

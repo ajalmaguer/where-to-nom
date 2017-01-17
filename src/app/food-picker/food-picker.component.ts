@@ -16,7 +16,7 @@ export class FoodPickerComponent implements OnInit {
 	count: number
 	maxCount: number = 20
 
-	beep: any = new Beep('/assets/beep.mp3')
+	beep: any = new Beep('assets/beep.mp3')
 
 	constructor(private listService: FoodListService) {
 		
