@@ -23,7 +23,7 @@ export class FoodListComponent implements OnInit {
 	}
 
 	onKeyup(event) {
-		if (event.code == "Enter") {
+		if (event.keyCode == 13) {
 			this.listService.addItem()
 			setTimeout(() => {
 				let self = this
