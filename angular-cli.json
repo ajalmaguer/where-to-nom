@@ -22,7 +22,9 @@
         "assets/css/bootstrap.min.css",
         "assets/css/font-awesome.min.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "assets/js/Tone.min.js"
+      ],
       "environments": {
         "source": "environments/environment.ts",
         "dev": "environments/environment.ts",

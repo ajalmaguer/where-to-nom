@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FoodListService, Restaurant } from '../food-list.service'
+
+declare var Tone
 
 @Component({
 	selector: 'nom-food-picker',
@@ -16,14 +18,12 @@ export class FoodPickerComponent implements OnInit {
 	count: number
 	maxCount: number = 20
 
-	beep: any = new Beep('assets/beep.mp3')
-
 	constructor(private listService: FoodListService) {
 		
 	}
 
 	ngOnInit() {
-		this.beep.load()
+		this.getAudio()
 	}
 
 	pickFood() {
@@ -83,45 +83,81 @@ export class FoodPickerComponent implements OnInit {
 				newSelection = this.options[Math.floor(Math.random()*this.options.length)]
 			}	
 		}
-		this.beep.play()
+		this.playSound()
 		return newSelection
 	}
 
+	synth: any
+	getAudio() {
+		this.synth = new Tone.Synth({
+			"oscillator" : {
+				"type" : "square"
+			},
+			"envelope" : {
+				"attack" : 0.01,
+				"decay" : 0.2,
+				"sustain" : 0.2,
+				"release" : 0.2,
+			}
+		}).toMaster();
+
+	    // for(let i = 0; i < 20; i++ ){
+	    // 	setTimeout(() => {
+		   //  	this.playSound()
+		   //  },150*i)
+	    // }
+	}
+
+	playSound() {
+		this.synth.triggerAttack('A2');
+	    setTimeout(() => {
+	    	this.synth.triggerRelease()
+	    },100)
+	}
+
 }
 
-class Beep {
-	sound1: any = new Audio()
-	sound2: any = new Audio()
-	sound3: any = new Audio()
-	i: number = 0
+declare var window
+
+// class Beep {
+// 	audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+// 	// oscillator = this.audioCtx.createOscillator()
+// 	// gainNode = this.audioCtx.createGain()
+
+// 	sound1: any = new Audio()
+// 	sound2: any = new Audio()
+// 	sound3: any = new Audio()
+// 	i: number = 0
 	
-	constructor(src: string) {
-		this.sound1.src = src
-		this.sound2.src = src
-		this.sound3.src = src
-	}
+// 	constructor(src: string) {
 
-	load() {
-		this.sound1.load()
-		this.sound2.load()
-		this.sound3.load()
-	}
 
-	play() {
-		switch (this.i % 3) {
-			case 0:
-				this.sound1.load()
-				this.sound1.play()
-				break;
-			case 1:
-				this.sound2.load()
-				this.sound2.play()
-				break;
-			case 2:
-				this.sound3.load()
-				this.sound3.play()
-				break;
-		}
-		this.i++
-	}
-}
+// 		// this.sound1.src = src
+// 		// this.sound2.src = src
+// 		// this.sound3.src = src
+// 	}
+
+// 	load() {
+// 		// this.sound1.load()
+// 		// this.sound2.load()
+// 		// this.sound3.load()
+// 	}
+
+// 	play() {
+// 		switch (this.i % 3) {
+// 			case 0:
+// 				this.sound1.load()
+// 				this.sound1.play()
+// 				break;
+// 			case 1:
+// 				this.sound2.load()
+// 				this.sound2.play()
+// 				break;
+// 			case 2:
+// 				this.sound3.load()
+// 				this.sound3.play()
+// 				break;
+// 		}
+// 		this.i++
+// 	}
+// }
