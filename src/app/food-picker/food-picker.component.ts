@@ -1,0 +1,110 @@
+import { Component, OnInit } from '@angular/core';
+import { FoodListService } from '../food-list.service'
+
+@Component({
+	selector: 'nom-food-picker',
+	templateUrl: './food-picker.component.html',
+	styleUrls: ['./food-picker.component.css']
+})
+export class FoodPickerComponent implements OnInit {
+	selection: string = ''
+	options: string[]
+
+	interval: number
+	dInterval: number = 20
+	count: number
+	maxCount: number = 20
+
+	beep: any = new Beep('/assets/beep.mp3')
+
+	constructor(private list: FoodListService) {
+		this.options = this.list.options
+	}
+
+	ngOnInit() {
+		this.selection = 'Where to nom?'
+		this.beep.load()
+	}
+
+	pickFood() {
+		console.log('picking food')
+		this.interval = 1
+		this.count = 0
+		this.timer(()=> {})
+	}
+
+	timer(callback) {
+		this.interval += this.dInterval
+		this.count++
+
+		this.selection = this.getNewSelection()
+
+		if (this.count < this.maxCount) {
+			setTimeout(() => {
+				this.timer(() => {this.done()})
+			}, this.interval)
+		} else {
+			callback()
+		}
+	}
+
+	done() {
+		let delay = Math.random() * 2000
+		setTimeout(() => {
+			// set to result of api call
+			console.log('done')
+			this.selection = this.getNewSelection()
+		}, delay) 
+	}
+
+	getNewSelection() {
+		let newSelection = this.options[Math.floor(Math.random()*this.options.length)]
+		// console.log(this.selection, newSelection)
+		for (var i=0; i < 3; i++ ) {
+			if (this.selection == newSelection) {
+				// console.log('pick again')
+				newSelection = this.options[Math.floor(Math.random()*this.options.length)]
+			}	
+		}
+		this.beep.play()
+		return newSelection
+	}
+
+}
+
+class Beep {
+	sound1: any = new Audio()
+	sound2: any = new Audio()
+	sound3: any = new Audio()
+	i: number = 0
+	
+	constructor(src: string) {
+		this.sound1.src = src
+		this.sound2.src = src
+		this.sound3.src = src
+	}
+
+	load() {
+		this.sound1.load()
+		this.sound2.load()
+		this.sound3.load()
+	}
+
+	play() {
+		switch (this.i % 3) {
+			case 0:
+				this.sound1.load()
+				this.sound1.play()
+				break;
+			case 1:
+				this.sound2.load()
+				this.sound2.play()
+				break;
+			case 2:
+				this.sound3.load()
+				this.sound3.play()
+				break;
+		}
+		this.i++
+	}
+}

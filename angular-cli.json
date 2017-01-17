@@ -18,7 +18,9 @@
       "prefix": "nom",
       "mobile": false,
       "styles": [
-        "styles.css"
+        "styles.css",
+        "assets/css/bootstrap.min.css",
+        "assets/css/font-awesome.min.css"
       ],
       "scripts": [],
       "environments": {
