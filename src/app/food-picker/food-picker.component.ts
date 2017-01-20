@@ -66,7 +66,7 @@ export class FoodPickerComponent implements OnInit {
 	}
 
 	done() {
-		let delay = Math.random() * 2000
+		let delay = Math.random() * 2000 + 1000
 		setTimeout(() => {
 			// set to result of api call
 			this.picking = false
@@ -100,19 +100,10 @@ export class FoodPickerComponent implements OnInit {
 				"release" : 0.2,
 			}
 		}).toMaster();
-
-	    // for(let i = 0; i < 20; i++ ){
-	    // 	setTimeout(() => {
-		   //  	this.playSound()
-		   //  },150*i)
-	    // }
 	}
 
 	playSound() {
-		this.synth.triggerAttack('A2');
-	    setTimeout(() => {
-	    	this.synth.triggerRelease()
-	    },100)
+		this.synth.triggerAttackRelease('A2', '16n');
 	}
 
 }
