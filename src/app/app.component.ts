@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from './local-storage.service'
+import { FoodListService } from './food-list.service'
 
 @Component({
-	selector: 'mb-root',
+	selector: 'nom-root',
 	templateUrl: './app.component.html',
 	styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-	title = 'mb works!';
+	title = 'nom works!';
 
-	constructor(private dataService: LocalStorageService) { }
+	constructor(private listService: FoodListService) {}
 
 	ngOnInit() {
-		this.dataService.loadData()
+		this.listService.loadData()
 	}
 
 }
