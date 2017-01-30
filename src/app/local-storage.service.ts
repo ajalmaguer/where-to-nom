@@ -1,33 +1,23 @@
 import { Injectable } from '@angular/core';
-import { multiplicationFacts } from './mathFacts'
 
 @Injectable()
 export class LocalStorageService {
-	data: any = {
-		bingoCard: {B: [], I:[], N: [], G: [], O: []},
-		facts: multiplicationFacts,
-		pickedFacts: []
-	}
+	data: any = []
 	showedAlert: boolean = false
 
 	constructor() { }
-
-	getNewBingoCard() {
-		this.data.bingoCard = { B: [], I: [], N: [], G: [], O: [] }
-		return this.data.bingoCard
-	}
 
 	saveData() {
 		this.setItem('data', this.data)
 	}
 
 	loadData() {
-		var localStorageData = this.getItem('data')
-		// console.log('localStorageData =', localStorageData)
-		if (localStorageData != null) {
-			this.data = localStorageData
+		let data = this.getItem('data')
+		if (data != null && typeof data.forEach == 'function') {
+			data.forEach((item)=> {
+				this.data.push(item)
+			})
 		}
-		// console.log('this.data=', this.data)
 	}
 
 	setItem(key: string, value: any) {

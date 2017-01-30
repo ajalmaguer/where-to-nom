@@ -10,7 +10,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { PlayComponent } from './play/play.component';
 import { HostComponent } from './host/host.component';
 import { HomeComponent } from './home/home.component';
-import { TileDirective } from './play/tile.directive';
 
 @NgModule({
 	declarations: [
@@ -19,7 +18,6 @@ import { TileDirective } from './play/tile.directive';
 		PlayComponent,
 		HostComponent,
 		HomeComponent,
-		TileDirective,
 	],
 	imports: [
 		AppRoutingModule,
