@@ -6,19 +6,19 @@
 <div class="flex-grid">
 	<div class="col">
 		<div>B</div>
-		<div *ngFor="let tile of bingoCard.B" [mbTile]="tile" [class.selected]="tile.selected">
+		<div *ngFor="let tile of bingoCard.B" mbTile>
 			{{tile.answer}}
 		</div>
 	</div>
 	<div class="col">
 		<div>I</div>
-		<div *ngFor="let tile of bingoCard.I" [mbTile]="tile" [class.selected]="tile.selected">
+		<div *ngFor="let tile of bingoCard.I" mbTile>
 			{{tile.answer}}
 		</div>
 	</div>
 	<div class="col">
 		<div>N</div>
-		<div *ngFor="let tile of bingoCard.N; let i = index;" [mbTile]="tile" [class.selected]="tile.selected">
+		<div *ngFor="let tile of bingoCard.N; let i = index;" mbTile>
 			<span *ngIf="i == 2" class="free-space">Free Space</span>
 			<span *ngIf="i != 2">{{tile.answer}}</span>
 			
@@ -26,19 +26,14 @@
 	</div>
 	<div class="col">
 		<div>G</div>
-		<div *ngFor="let tile of bingoCard.G" [mbTile]="tile" [class.selected]="tile.selected">
+		<div *ngFor="let tile of bingoCard.G" mbTile>
 			{{tile.answer}}
 		</div>
 	</div>
 	<div class="col">
 		<div>O</div>
-		<div *ngFor="let tile of bingoCard.O" [mbTile]="tile" [class.selected]="tile.selected">
+		<div *ngFor="let tile of bingoCard.O" mbTile>
 			{{tile.answer}}
 		</div>
 	</div>
 </div>
-
-
-<pre>
-	{{bingoCard | json}}
-</pre>

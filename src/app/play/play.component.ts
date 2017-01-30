@@ -29,7 +29,7 @@ export class PlayComponent implements OnInit {
 				this.bingoCard[key].push(this.pickFact(sortedFactsCopy, key))
 			}
 		}
-		this.dataService.saveData()
+		console.log(this.bingoCard)
 	}
 
 	pickFact(facts, columnKey) {

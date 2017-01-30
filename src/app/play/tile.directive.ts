@@ -1,19 +1,17 @@
-import { Directive, ElementRef, HostListener, HostBinding, Input} from '@angular/core';
-import { LocalStorageService } from '../local-storage.service'
+import { Directive, ElementRef, HostListener, HostBinding } from '@angular/core';
 
 @Directive({
 	selector: '[mbTile]'
 })
 export class TileDirective {
-	@Input('mbTile') tileData
+	@HostBinding('class.selected') selected: boolean = false;
 
-	constructor(private el: ElementRef, private dataService: LocalStorageService) {
+	constructor(private el: ElementRef) {
 		this.el.nativeElement.style.cursor = 'pointer'
 	}
 
 	@HostListener('click') onClick(event) {
-		this.tileData.selected = !this.tileData.selected
-		this.dataService.saveData()
+		this.selected = !this.selected
 	}
 
 }
