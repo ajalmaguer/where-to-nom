@@ -15,7 +15,7 @@
       "main": "main.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.json",
-      "prefix": "nom",
+      "prefix": "mb",
       "mobile": false,
       "styles": [
         "styles.css",
